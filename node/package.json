@@ -1,0 +1,19 @@
+{
+  "name": "node",
+  "version": "1.0.0",
+  "description": "node scripts for benchmarking elasticsearch",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kartikkhk/elasticsearch-benchmarks.git"
+  },
+  "author": "Kartik",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/kartikkhk/elasticsearch-benchmarks/issues"
+  },
+  "homepage": "https://github.com/kartikkhk/elasticsearch-benchmarks#readme"
+}
