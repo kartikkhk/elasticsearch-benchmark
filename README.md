@@ -8,7 +8,7 @@
 ### API Reference
 [![Run in Postman](https://run.pstmn.io/button.svg)](https://www.getpostman.com/collections/72e3c06691e1b16ceb33)
 
-##### Curl requests
+#### Curl requests
 * Write:
 
 ```zsh
