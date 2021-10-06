@@ -52,3 +52,29 @@ vus_max........................: 10      min=10       max=10
 ```
 
 ---
+
+### NodeJS Results
+
+- **Type: READ**
+- **VUS: 10**
+- **DURATION: 10m**
+
+```
+checks.........................: 100.00% ✓ 259918     ✗ 0
+data_received..................: 1.1 GB  1.8 MB/s
+data_sent......................: 26 MB   44 kB/s
+http_req_blocked...............: avg=4.87µs  min=1µs    med=4µs     max=1.22ms  p(90)=6µs     p(95)=8µs
+http_req_connecting............: avg=13ns    min=0s     med=0s      max=447µs   p(90)=0s      p(95)=0s
+http_req_duration..............: avg=19.17ms min=4.59ms med=17.38ms max=1.05s   p(90)=28.48ms p(95)=33.55ms
+ { expected_response:true }...: avg=19.17ms min=4.59ms med=17.38ms max=1.05s   p(90)=28.48ms p(95)=33.55ms
+http_req_failed................: 0.00%   ✓ 0          ✗ 259918
+http_req_receiving.............: avg=81.28µs min=15µs   med=73µs    max=6.66ms  p(90)=118µs   p(95)=139µs
+http_req_sending...............: avg=20.38µs min=5µs    med=18µs    max=12.08ms p(90)=28µs    p(95)=36µs
+http_req_tls_handshaking.......: avg=0s      min=0s     med=0s      max=0s      p(90)=0s      p(95)=0s
+http_req_waiting...............: avg=19.07ms min=4.51ms med=17.28ms max=1.05s   p(90)=28.37ms p(95)=33.45ms
+http_reqs......................: 259918  433.169926/s
+iteration_duration.............: avg=23.06ms min=4.76ms med=19.27ms max=1.05s   p(90)=36.45ms p(95)=48.72ms
+iterations.....................: 259918  433.169926/s
+vus............................: 10      min=10       max=10
+vus_max........................: 10      min=10       max=10
+```
