@@ -1,12 +1,12 @@
 package utils
 
 import (
-	"log"
+	"fmt"
 
-	"github.com/elastic/go-elasticsearch/v8"
+	"github.com/olivere/elastic/v7"
 )
 
-var client elasticsearch.Client
+var client elastic.Client
 
 type CommentDoc struct {
 	PostId int32  `json:"postId"`
@@ -17,18 +17,13 @@ type CommentDoc struct {
 }
 
 func ConstructClient() {
-	client, err := elasticsearch.NewDefaultClient()
+	_, err := elastic.NewClient(elastic.SetURL("http://localhost:9200"),
+		elastic.SetSniff(false),
+		elastic.SetHealthcheck(false))
 	if err != nil {
-		log.Fatalf("Error creating the client: %s", err)
 		panic(err)
 	}
-	log.Println(elasticsearch.Version)
-	res, err := client.Info()
-	if err != nil {
-		log.Fatalf("Error getting response: %s", err)
-	}
-	defer res.Body.Close()
-	log.Println(res)
+	fmt.Println("elastic client connected")
 }
 
 // func Insert(index string, _type string, data CommentDoc) {
