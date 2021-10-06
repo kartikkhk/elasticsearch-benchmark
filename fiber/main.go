@@ -8,6 +8,7 @@ import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/logger"
 	"github.com/kartikkhk/elasticsearch-benchmarks/utils"
+	"github.com/olivere/elastic/v7"
 )
 
 const port = ":3000"
@@ -38,11 +39,7 @@ func main() {
 		}
 		dataJSON, _ := json.Marshal(*payload)
 		js := string(dataJSON)
-		reply, err := esclient.Index().
-			Index("comments").
-			BodyJson(js).
-			Type("comment").
-			Do(ctx)
+		reply, err := esclient.Index().Index("comments").BodyJson(js).Type("comment").Do(ctx)
 
 		if err != nil {
 			return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
@@ -56,7 +53,26 @@ func main() {
 			"statusCode": fiber.StatusCreated,
 			"result":     reply,
 		})
+	})
 
+	// description {read} get request
+	app.Get("/read", func(c *fiber.Ctx) error {
+		keyword := c.Query("keyword")
+		searchSource := elastic.NewSearchSource()
+		searchSource.Query(elastic.NewMatchQuery("body", keyword))
+		reply, err := esclient.Search("comments").Type("comment").SearchSource(searchSource).Do(ctx)
+		if err != nil {
+			return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
+				"status":     "failure",
+				"error":      "internal server error",
+				"statusCode": fiber.StatusInternalServerError,
+			})
+		}
+		return c.Status(fiber.StatusCreated).JSON(fiber.Map{
+			"status":     "success",
+			"statusCode": fiber.StatusCreated,
+			"result":     reply,
+		})
 	})
 
 	app.Listen(port)
