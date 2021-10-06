@@ -1,5 +1,7 @@
 const app = require("express")();
 const morgan = require("morgan");
+const client = require("./connection/client");
+const data = require("./data/comments");
 
 const PORT = process.env.PORT || 3000;
 app.use(morgan("dev"));
