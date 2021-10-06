@@ -4,6 +4,7 @@ go 1.17
 
 require (
 	github.com/andybalholm/brotli v1.0.3 // indirect
+	github.com/elastic/go-elasticsearch/v8 v8.0.0-20211001143748-fd99a833e74f // indirect
 	github.com/gofiber/fiber/v2 v2.20.0 // indirect
 	github.com/klauspost/compress v1.13.6 // indirect
 	github.com/valyala/bytebufferpool v1.0.0 // indirect
