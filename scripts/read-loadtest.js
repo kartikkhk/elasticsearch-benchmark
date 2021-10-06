@@ -2,6 +2,18 @@ import http from "k6/http";
 import { check } from "k6";
 const keywords = getKeywords();
 
+export const options = {
+  vus: 12,
+  duration: "2m",
+  insecureSkipTLSVerify: true,
+  ext: {
+    loadimpact: {
+      projectID: 3554719,
+      name: "read-loadtest",
+    },
+  },
+};
+
 export default function () {
   const startTimestamp = Date.now();
   const keyword = keywords[Math.floor(Math.random() * keywords.length)];

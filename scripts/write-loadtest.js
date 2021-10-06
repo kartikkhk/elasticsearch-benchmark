@@ -2,6 +2,18 @@ import http from "k6/http";
 import { check } from "k6";
 const comments = getComments();
 
+export const options = {
+  vus: 12,
+  duration: "2m",
+  insecureSkipTLSVerify: true,
+  ext: {
+    loadimpact: {
+      projectID: 3554719,
+      name: "write-loadtest",
+    },
+  },
+};
+
 export default function () {
   const startTimestamp = Date.now();
   const id = Math.floor(Math.random() * comments.length);
