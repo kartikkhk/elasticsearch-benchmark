@@ -1,8 +1,11 @@
-## Local Loadtest Results
+# Local Loadtest Results
 
-- Type: READ
-- VUS: 10
-- DURATION: 10m
+### Golang Results
+
+- **Type: READ**
+- **VUS: 10**
+- **DURATION: 10m**
+
 ```
 checks.........................: 0.00%  ✓ 0          ✗ 269697
 data_received..................: 1.2 GB 1.9 MB/s
