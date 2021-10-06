@@ -1,8 +1,6 @@
 package utils
 
 import (
-	"fmt"
-
 	"github.com/olivere/elastic/v7"
 )
 
@@ -16,21 +14,9 @@ type CommentDoc struct {
 	Body   string `body:"body"`
 }
 
-func ConstructClient() {
-	_, err := elastic.NewClient(elastic.SetURL("http://localhost:9200"),
+func GetESClient() (*elastic.Client, error) {
+	client, err := elastic.NewClient(elastic.SetURL("http://localhost:9200"),
 		elastic.SetSniff(false),
 		elastic.SetHealthcheck(false))
-	if err != nil {
-		panic(err)
-	}
-	fmt.Println("elastic client connected")
+	return client, err
 }
-
-// func Insert(index string, _type string, data CommentDoc) {
-// 	dataJSON, err := json.Marshall(data)
-// 	body := string(dataJSON)
-// 	ind, err := esclient.Index().
-// 		Index(index).
-// 		BodyJson(body).
-// 		Do(ctx)
-// }

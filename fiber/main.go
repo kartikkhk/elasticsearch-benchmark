@@ -1,6 +1,10 @@
 package main
 
 import (
+	"context"
+	"encoding/json"
+	"fmt"
+
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/logger"
 	"github.com/kartikkhk/elasticsearch-benchmarks/utils"
@@ -11,7 +15,12 @@ const port = ":3000"
 func main() {
 	app := fiber.New()
 	app.Use(logger.New())
-	utils.ConstructClient()
+	ctx := context.Background()
+	esclient, err := utils.GetESClient()
+	if err != nil {
+		fmt.Println("Error initializing : ", err)
+		panic(err)
+	}
 
 	app.Get("/ping", func(c *fiber.Ctx) error {
 		return c.Status(fiber.StatusOK).SendString("pong")
@@ -23,14 +32,32 @@ func main() {
 		if err := c.BodyParser(&payload); err != nil {
 			return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
 				"status":     "failure",
-				"error":      "Invalid request body",
+				"error":      "invalid request body",
 				"statusCode": fiber.StatusBadRequest,
 			})
 		}
-		return c.JSON(payload)
+		dataJSON, _ := json.Marshal(*payload)
+		js := string(dataJSON)
+		reply, err := esclient.Index().
+			Index("comments").
+			BodyJson(js).
+			Type("comment").
+			Do(ctx)
+
+		if err != nil {
+			return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
+				"status":     "failure",
+				"error":      "internal server error",
+				"statusCode": fiber.StatusInternalServerError,
+			})
+		}
+		return c.Status(fiber.StatusCreated).JSON(fiber.Map{
+			"status":     "success",
+			"statusCode": fiber.StatusCreated,
+			"result":     reply,
+		})
+
 	})
-	err := app.Listen(port)
-	if err != nil {
-		panic(err)
-	}
+
+	app.Listen(port)
 }
