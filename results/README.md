@@ -1,4 +1,4 @@
-# Local Loadtest Results
+# Local Loadtest Results [Mac OS]
 
 ### Golang Results
 
